@@ -1,0 +1,13 @@
+version: "3.3"
+
+services:
+  bd:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=dbr
+      - POSTGRES_USER=xhepo
+      - POSTGRES_PASSWORD=xhepower
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
