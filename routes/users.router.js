@@ -6,6 +6,7 @@ const {
 	updateUserSchema,
 	createUserSchema,
 	getUserSchema,
+	queryUserSchema,
 } = require('./../schemas/user.schema');
 
 const router = express.Router();
@@ -16,16 +17,30 @@ router.get(
 	'/',
 	passport.authenticate('jwt', { session: false }),
 	checkRoles(),
+	validatorHandler(queryUserSchema, 'query'),
 	async (req, res, next) => {
 		try {
-			const users = await service.find();
+			const users = await service.find(req.query);
 			res.json(users);
 		} catch (error) {
 			next(error);
 		}
 	}
 );
-
+router.get(
+	'/totalpages',
+	passport.authenticate('jwt', { session: false }),
+	checkRoles(),
+	validatorHandler(queryUserSchema, 'query'),
+	async (req, res, next) => {
+		try {
+			const users = await service.find(req.query);
+			res.json(users);
+		} catch (error) {
+			next(error);
+		}
+	}
+);
 router.get(
 	'/:id',
 	passport.authenticate('jwt', { session: false }),
