@@ -18,14 +18,16 @@ class UserService {
 
 	async find(query) {
 		const options = { order: [['id', 'DESC']], where: {} };
-		const { limit, offset, date, date_min, date_max, search } = query;
+		const { limit, offset, date, date_min, date_max, searchText, searchField } =
+			query;
 		if (limit && offset) {
 			options.limit = limit;
 			options.offset = offset;
 		}
-		if (search) {
-			options.where.name = {
-				[Op.like]: search,
+		if (searchText && searchField) {
+			options.where[searchField] = {
+				[Op.iLike]: `%${searchText}%`,
+				// [Op.like]: ´%${searchText }%´,
 			};
 		}
 		if (date) {

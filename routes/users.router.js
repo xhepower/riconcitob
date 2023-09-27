@@ -35,7 +35,7 @@ router.get(
 	async (req, res, next) => {
 		try {
 			const users = await service.find(req.query);
-			res.json(users);
+			res.json(users.length);
 		} catch (error) {
 			next(error);
 		}

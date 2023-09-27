@@ -10,6 +10,8 @@ const page_limit = Joi.number().integer();
 const date = Joi.date();
 const date_min = Joi.date();
 const date_max = Joi.date();
+const searchText = Joi.string();
+const searchField = Joi.string();
 const createUserSchema = Joi.object({
 	email: email.required(),
 	password: password.required(),
@@ -25,6 +27,8 @@ const getUserSchema = Joi.object({
 	id: id.required(),
 });
 const queryUserSchema = Joi.object({
+	searchText,
+	searchField,
 	limit,
 	offset,
 	page_limit,
