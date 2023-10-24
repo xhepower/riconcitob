@@ -6,6 +6,7 @@ const {
 	updateUnitSchema,
 	createUnitSchema,
 	getUnitSchema,
+	queryUnitSchema,
 } = require('./../schemas/unit.schema');
 
 const router = express.Router();
@@ -16,10 +17,25 @@ router.get(
 	'/',
 	passport.authenticate('jwt', { session: false }),
 	checkRoles(),
+	validatorHandler(queryUnitSchema, 'query'),
 	async (req, res, next) => {
 		try {
-			const units = await service.find();
-			res.json(units);
+			const users = await service.find(req.query);
+			res.json(users);
+		} catch (error) {
+			next(error);
+		}
+	}
+);
+router.get(
+	'/totalpages',
+	passport.authenticate('jwt', { session: false }),
+	checkRoles(),
+	validatorHandler(queryUnitSchema, 'query'),
+	async (req, res, next) => {
+		try {
+			const users = await service.find(req.query);
+			res.json(users.length);
 		} catch (error) {
 			next(error);
 		}

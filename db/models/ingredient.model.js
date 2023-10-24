@@ -1,7 +1,7 @@
 const { Model, Sequelize } = require('sequelize');
 
 const INGREDIENT_TABLE = 'ingredients';
-
+const UNIT_TABLE = 'units';
 const IngredientSchema = {
 	id: {
 		allowNull: false,
@@ -17,6 +17,12 @@ const IngredientSchema = {
 	unitId: {
 		allowNull: true,
 		type: Sequelize.DataTypes.INTEGER,
+		references: {
+			model: UNIT_TABLE,
+			key: 'id',
+		},
+		onUpdate: 'CASCADE',
+		onDelete: 'SET NULL',
 	},
 	price: {
 		allowNull: false,
@@ -43,11 +49,7 @@ class Ingredient extends Model {
 		this.hasMany(models.DetailProduct, {
 			foreignKey: 'ingredientId',
 		});
-		//this.belongsTo(models.Category, { foreignKey: 'idCategory' });
-		// this.hasMany(models.Cliente, {
-		//   as: 'clientes',
-		//   foreignKey: 'idRuta',
-		// });
+		this.belongsTo(models.Unit, { foreignKey: 'unitId' });
 	}
 	static config(sequelize) {
 		return {

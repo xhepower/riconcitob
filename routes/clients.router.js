@@ -6,6 +6,7 @@ const {
 	updateClientSchema,
 	createClientSchema,
 	getClientSchema,
+	queryClientSchema,
 } = require('./../schemas/client.schema');
 
 const router = express.Router();
@@ -16,26 +17,25 @@ router.get(
 	'/',
 	passport.authenticate('jwt', { session: false }),
 	checkRoles(),
+	validatorHandler(queryClientSchema, 'query'),
 	async (req, res, next) => {
 		try {
-			const clients = await service.find();
-			res.json(clients);
+			const users = await service.find(req.query);
+			res.json(users);
 		} catch (error) {
 			next(error);
 		}
 	}
 );
-
 router.get(
-	'/:id',
+	'/totalpages',
 	passport.authenticate('jwt', { session: false }),
 	checkRoles(),
-	validatorHandler(getClientSchema, 'params'),
+	validatorHandler(queryClientSchema, 'query'),
 	async (req, res, next) => {
 		try {
-			const { id } = req.params;
-			const category = await service.findOne(id);
-			res.json(category);
+			const users = await service.find(req.query);
+			res.json(users.length);
 		} catch (error) {
 			next(error);
 		}

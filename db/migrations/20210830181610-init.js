@@ -101,6 +101,12 @@ module.exports = {
 			unitId: {
 				allowNull: true,
 				type: Sequelize.DataTypes.INTEGER,
+				references: {
+					model: UNIT_TABLE,
+					key: 'id',
+				},
+				onUpdate: 'CASCADE',
+				onDelete: 'SET NULL',
 			},
 			price: {
 				allowNull: false,

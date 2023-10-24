@@ -24,6 +24,11 @@ const UnitSchema = {
 };
 
 class Unit extends Model {
+	static associate(models) {
+		this.hasMany(models.Ingredient, {
+			foreignKey: 'unitId',
+		});
+	}
 	static config(sequelize) {
 		return {
 			sequelize,

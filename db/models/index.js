@@ -20,6 +20,8 @@ function setupModels(sequelize) {
 
 	Category.associate(sequelize.models);
 	Product.associate(sequelize.models);
+	Unit.associate(sequelize.models);
+	Ingredient.associate(sequelize.models);
 }
 
 module.exports = setupModels;
