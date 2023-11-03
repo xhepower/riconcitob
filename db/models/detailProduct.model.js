@@ -1,7 +1,8 @@
 const { Model, Sequelize } = require('sequelize');
 
 const DETAIL_PRODUCT_TABLE = 'detailproducts';
-
+const INGREDIENT_TABLE = 'detailproducts';
+const PRODUCT_TABLE = 'detailproducts';
 const DetailProductSchema = {
 	id: {
 		allowNull: false,
@@ -12,10 +13,22 @@ const DetailProductSchema = {
 	ingredientId: {
 		allowNull: true,
 		type: Sequelize.DataTypes.INTEGER,
+		references: {
+			model: INGREDIENT_TABLE,
+			key: 'id',
+		},
+		onUpdate: 'CASCADE',
+		onDelete: 'SET NULL',
 	},
 	productId: {
 		allowNull: true,
 		type: Sequelize.DataTypes.INTEGER,
+		references: {
+			model: PRODUCT_TABLE,
+			key: 'id',
+		},
+		onUpdate: 'CASCADE',
+		onDelete: 'SET NULL',
 	},
 	quantity: {
 		allowNull: false,

@@ -46,10 +46,6 @@ class Product extends Model {
 			foreignKey: 'productId',
 		});
 		this.belongsTo(models.Category, { foreignKey: 'idCategory' });
-		// this.hasMany(models.Cliente, {
-		//   as: 'clientes',
-		//   foreignKey: 'idRuta',
-		// });
 	}
 	static config(sequelize) {
 		return {

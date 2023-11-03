@@ -120,6 +120,11 @@ module.exports = {
 				allowNull: false,
 				type: Sequelize.DataTypes.DECIMAL,
 			},
+			isProduct: {
+				allowNull: false,
+				type: Sequelize.DataTypes.BOOLEAN,
+				defaultValue: false,
+			},
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DataTypes.DATE,
@@ -225,10 +230,22 @@ module.exports = {
 			ingredientId: {
 				allowNull: true,
 				type: Sequelize.DataTypes.INTEGER,
+				references: {
+					model: INGREDIENT_TABLE,
+					key: 'id',
+				},
+				onUpdate: 'CASCADE',
+				onDelete: 'SET NULL',
 			},
 			productId: {
 				allowNull: true,
 				type: Sequelize.DataTypes.INTEGER,
+				references: {
+					model: PRODUCT_TABLE,
+					key: 'id',
+				},
+				onUpdate: 'CASCADE',
+				onDelete: 'SET NULL',
 			},
 			quantity: {
 				allowNull: false,

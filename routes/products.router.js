@@ -6,6 +6,7 @@ const {
 	updateProductSchema,
 	createProductSchema,
 	getProductSchema,
+	queryProductSchema,
 } = require('./../schemas/product.schema');
 
 const router = express.Router();
@@ -16,10 +17,25 @@ router.get(
 	'/',
 	passport.authenticate('jwt', { session: false }),
 	checkRoles(),
+	validatorHandler(queryProductSchema, 'query'),
 	async (req, res, next) => {
 		try {
-			const products = await service.find();
-			res.json(products);
+			const users = await service.find(req.query);
+			res.json(users);
+		} catch (error) {
+			next(error);
+		}
+	}
+);
+router.get(
+	'/totalpages',
+	passport.authenticate('jwt', { session: false }),
+	checkRoles(),
+	validatorHandler(queryProductSchema, 'query'),
+	async (req, res, next) => {
+		try {
+			const users = await service.find(req.query);
+			res.json(users.length);
 		} catch (error) {
 			next(error);
 		}
