@@ -6,6 +6,7 @@ const {
 	updateDetailProductSchema,
 	createDetailProductSchema,
 	getDetailProductSchema,
+	queryDetailProductSchema,
 } = require('./../schemas/detailProduct.schema');
 
 const router = express.Router();
@@ -16,10 +17,25 @@ router.get(
 	'/',
 	passport.authenticate('jwt', { session: false }),
 	checkRoles(),
+	validatorHandler(queryDetailProductSchema, 'query'),
 	async (req, res, next) => {
 		try {
-			const detailproducts = await service.find();
-			res.json(detailproducts);
+			const users = await service.find(req.query);
+			res.json(users);
+		} catch (error) {
+			next(error);
+		}
+	}
+);
+router.get(
+	'/totalpages',
+	passport.authenticate('jwt', { session: false }),
+	checkRoles(),
+	validatorHandler(queryDetailProductSchema, 'query'),
+	async (req, res, next) => {
+		try {
+			const users = await service.find(req.query);
+			res.json(users.length);
 		} catch (error) {
 			next(error);
 		}
