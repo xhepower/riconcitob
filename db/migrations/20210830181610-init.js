@@ -93,6 +93,10 @@ module.exports = {
 				primaryKey: true,
 				type: Sequelize.DataTypes.INTEGER,
 			},
+			cost: {
+				allowNull: false,
+				type: Sequelize.DataTypes.DECIMAL,
+			},
 			name: {
 				allowNull: false,
 				type: Sequelize.DataTypes.STRING,
@@ -203,14 +207,22 @@ module.exports = {
 			clientId: {
 				allowNull: true,
 				type: Sequelize.DataTypes.INTEGER,
+				references: {
+					model: CLIENT_TABLE,
+					key: 'id',
+				},
+				onUpdate: 'CASCADE',
+				onDelete: 'SET NULL',
 			},
 			status: {
 				allowNull: true,
 				type: Sequelize.DataTypes.STRING,
+				defaultValue: 'cocinando',
 			},
 			total: {
 				allowNull: false,
 				type: Sequelize.DataTypes.DECIMAL,
+				defaultValue: 0,
 			},
 
 			createdAt: {
@@ -269,10 +281,22 @@ module.exports = {
 			orderId: {
 				allowNull: false,
 				type: Sequelize.DataTypes.INTEGER,
+				references: {
+					model: ORDER_TABLE,
+					key: 'id',
+				},
+				onUpdate: 'CASCADE',
+				onDelete: 'SET NULL',
 			},
 			productId: {
 				allowNull: false,
 				type: Sequelize.DataTypes.INTEGER,
+				references: {
+					model: PRODUCT_TABLE,
+					key: 'id',
+				},
+				onUpdate: 'CASCADE',
+				onDelete: 'SET NULL',
 			},
 
 			quantity: {
@@ -291,13 +315,14 @@ module.exports = {
 
 	down: async (queryInterface) => {
 		await queryInterface.dropTable(USER_TABLE);
-		await queryInterface.dropTable(CLIENT_TABLE);
+
+		await queryInterface.dropTable(DETAIL_PRODUCT_TABLE);
+		await queryInterface.dropTable(DETAIL_ORDER_TABLE);
 		await queryInterface.dropTable(PRODUCT_TABLE);
 		await queryInterface.dropTable(CATEGORY_TABLE);
 		await queryInterface.dropTable(INGREDIENT_TABLE);
 		await queryInterface.dropTable(UNIT_TABLE);
 		await queryInterface.dropTable(ORDER_TABLE);
-		await queryInterface.dropTable(DETAIL_PRODUCT_TABLE);
-		await queryInterface.dropTable(DETAIL_ORDER_TABLE);
+		await queryInterface.dropTable(CLIENT_TABLE);
 	},
 };

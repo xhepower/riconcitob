@@ -6,6 +6,7 @@ const {
 	updateDetailOrderSchema,
 	createDetailOrderSchema,
 	getDetailOrderSchema,
+	queryDetailOrderSchema,
 } = require('./../schemas/detailOrder.schema');
 
 const router = express.Router();
@@ -16,10 +17,25 @@ router.get(
 	'/',
 	passport.authenticate('jwt', { session: false }),
 	checkRoles(),
+	validatorHandler(queryDetailOrderSchema, 'query'),
 	async (req, res, next) => {
 		try {
-			const detailorders = await service.find();
-			res.json(detailorders);
+			const users = await service.find(req.query);
+			res.json(users);
+		} catch (error) {
+			next(error);
+		}
+	}
+);
+router.get(
+	'/totalpages',
+	passport.authenticate('jwt', { session: false }),
+	checkRoles(),
+	validatorHandler(queryDetailOrderSchema, 'query'),
+	async (req, res, next) => {
+		try {
+			const users = await service.find(req.query);
+			res.json(users.length);
 		} catch (error) {
 			next(error);
 		}

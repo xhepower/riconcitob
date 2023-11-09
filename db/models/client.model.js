@@ -27,6 +27,11 @@ const ClientSchema = {
 };
 
 class Client extends Model {
+	static associate(models) {
+		this.hasMany(models.Order, {
+			foreignKey: 'clientId',
+		});
+	}
 	static config(sequelize) {
 		return {
 			sequelize,

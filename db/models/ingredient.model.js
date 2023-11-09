@@ -14,6 +14,10 @@ const IngredientSchema = {
 		type: Sequelize.DataTypes.STRING,
 		unique: true,
 	},
+	cost: {
+		allowNull: false,
+		type: Sequelize.DataTypes.DECIMAL,
+	},
 	unitId: {
 		allowNull: true,
 		type: Sequelize.DataTypes.INTEGER,

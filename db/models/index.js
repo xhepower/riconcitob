@@ -18,11 +18,14 @@ function setupModels(sequelize) {
 	DetailProduct.init(DetailProductSchema, DetailProduct.config(sequelize));
 	DetailOrder.init(DetailOrderSchema, DetailOrder.config(sequelize));
 
+	Client.associate(sequelize.models);
 	Category.associate(sequelize.models);
 	Product.associate(sequelize.models);
 	Unit.associate(sequelize.models);
 	Ingredient.associate(sequelize.models);
+	Order.associate(sequelize.models);
 	DetailProduct.associate(sequelize.models);
+	DetailOrder.associate(sequelize.models);
 }
 
 module.exports = setupModels;

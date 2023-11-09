@@ -6,6 +6,7 @@ const unitId = Joi.number().integer();
 const price = Joi.number().precision(2);
 const stock = Joi.number().precision(2);
 const minimum = Joi.number().precision(2);
+const cost = Joi.number().precision(2);
 const isProduct = Joi.boolean();
 const limit = Joi.number().integer();
 const offset = Joi.number().integer();
@@ -21,6 +22,7 @@ const createIngredientSchema = Joi.object({
 	unitId: unitId.required(),
 	stock: stock.required(),
 	minimum: minimum.required(),
+	cost: cost.required(),
 	isProduct: isProduct.required(),
 });
 

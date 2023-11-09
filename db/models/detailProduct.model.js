@@ -1,8 +1,8 @@
 const { Model, Sequelize } = require('sequelize');
 
 const DETAIL_PRODUCT_TABLE = 'detailproducts';
-const INGREDIENT_TABLE = 'detailproducts';
-const PRODUCT_TABLE = 'detailproducts';
+const INGREDIENT_TABLE = 'ingredients';
+const PRODUCT_TABLE = 'products';
 const DetailProductSchema = {
 	id: {
 		allowNull: false,

@@ -16,10 +16,12 @@ const OrderSchema = {
 	status: {
 		allowNull: true,
 		type: Sequelize.DataTypes.STRING,
+		defaultValue: 'cocinando',
 	},
 	total: {
 		allowNull: false,
 		type: Sequelize.DataTypes.DECIMAL,
+		defaultValue: 0,
 	},
 
 	createdAt: {
@@ -31,6 +33,12 @@ const OrderSchema = {
 };
 
 class Order extends Model {
+	static associate(models) {
+		this.hasMany(models.DetailOrder, {
+			foreignKey: 'orderId',
+		});
+		this.belongsTo(models.Client, { foreignKey: 'clientId' });
+	}
 	static config(sequelize) {
 		return {
 			sequelize,

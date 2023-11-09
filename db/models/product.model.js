@@ -1,7 +1,7 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
 
 const PRODUCT_TABLE = 'products';
-const CATEGORY_TABLE = 'products';
+const CATEGORY_TABLE = 'categories';
 const ProductSchema = {
 	id: {
 		allowNull: false,
