@@ -8,7 +8,21 @@ class IngredientService {
 	async create(data) {
 		//const hash = await bcrypt.hash(data.password, 10);
 		const newIngredient = await models.Ingredient.create(data);
-
+		//aqui la voy a cagar
+		if (newIngredient.dataValues.isProduct == true) {
+			const datillo = {
+				name: newIngredient.name,
+				price: newIngredient.price,
+				quantity: 1,
+			};
+			const newProduct = await models.Product.create(datillo);
+			const newDetailProduct = await models.DetailProduct.create({
+				ingredientId: newIngredient.dataValues.id,
+				productId: newProduct.dataValues.id,
+				quantity: 1,
+			});
+		}
+		//
 		return newIngredient;
 	}
 
@@ -44,6 +58,7 @@ class IngredientService {
 		users.forEach((user) => {
 			delete user.dataValues.password;
 		});
+
 		return users;
 	}
 
