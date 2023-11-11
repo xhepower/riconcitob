@@ -4,7 +4,7 @@ const id = Joi.number().integer();
 const clientId = Joi.number().integer();
 const status = Joi.string();
 const total = Joi.number().precision(2);
-
+const items = Joi.array();
 const limit = Joi.number().integer();
 const offset = Joi.number().integer();
 const page_limit = Joi.number().integer();
@@ -22,6 +22,7 @@ const createOrderSchema = Joi.object({
 	clientId: clientId,
 	status: status,
 	total: total,
+	items: items.required(),
 });
 
 const updateOrderSchema = Joi.object({
