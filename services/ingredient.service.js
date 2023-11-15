@@ -25,7 +25,33 @@ class IngredientService {
 		//
 		return newIngredient;
 	}
-
+	async sumarStock(id, quantity) {
+		const ingredient = this.findOne(id);
+		const stockviejo = ingredient.stock;
+		const stockNuevo = stockviejo - quantity;
+		this.update(id, { stock: stockNuevo });
+	}
+	async restarStock(id, quantity) {
+		console.log('restar', id, quantity);
+		const ingredient = await this.findOne(id);
+		const stockviejo = parseFloat(ingredient.stock);
+		const stockNuevo = parseFloat(
+			parseFloat(stockviejo) - parseFloat(quantity)
+		);
+		console.log(
+			'idIngre',
+			id,
+			'cantidad a restar',
+			quantity,
+			'ingrediente',
+			ingredient,
+			'stock viejo',
+			stockviejo,
+			'stocknuevo',
+			stockNuevo
+		);
+		this.update(id, { stock: stockNuevo });
+	}
 	async find(query) {
 		const options = {
 			order: [['id', 'DESC']],

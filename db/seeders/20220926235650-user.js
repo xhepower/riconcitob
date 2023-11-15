@@ -84,6 +84,11 @@ module.exports = {
 				phone: '98746366',
 				created_at: new Date(),
 			},
+			{
+				name: 'GENERICO',
+				phone: 'no tiene',
+				created_at: new Date(),
+			},
 		]);
 		await queryInterface.bulkInsert(INGREDIENT_TABLE, [
 			{

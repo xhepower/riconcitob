@@ -32,6 +32,8 @@ const updateIngredientSchema = Joi.object({
 	unitId: unitId,
 	stock: stock,
 	minimum: minimum,
+	cost: cost,
+	isProduct: isProduct,
 });
 
 const getIngredientSchema = Joi.object({

@@ -3,7 +3,7 @@ const id = Joi.number().integer();
 const orderId = Joi.number().integer();
 const productId = Joi.number().integer();
 const quantity = Joi.number().precision(2);
-
+const price = Joi.number().precision(2);
 const limit = Joi.number().integer();
 const offset = Joi.number().integer();
 const page_limit = Joi.number().integer();
@@ -18,12 +18,14 @@ const createDetailOrderSchema = Joi.object({
 	orderId: orderId.required(),
 	productId: productId.required(),
 	quantity: quantity.required(),
+	price: price.required,
 });
 
 const updateDetailOrderSchema = Joi.object({
 	orderId: orderId,
 	productId: productId,
 	quantity: quantity,
+	price: price,
 });
 const getDetailOrderSchema = Joi.object({
 	id: id.required(),

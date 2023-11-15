@@ -288,6 +288,10 @@ module.exports = {
 				onUpdate: 'CASCADE',
 				onDelete: 'SET NULL',
 			},
+			price: {
+				allowNull: false,
+				type: Sequelize.DataTypes.DECIMAL,
+			},
 			productId: {
 				allowNull: false,
 				type: Sequelize.DataTypes.INTEGER,
@@ -324,5 +328,6 @@ module.exports = {
 		await queryInterface.dropTable(UNIT_TABLE);
 		await queryInterface.dropTable(ORDER_TABLE);
 		await queryInterface.dropTable(CLIENT_TABLE);
+		await queryInterface.dropTable(USER_TABLE);
 	},
 };

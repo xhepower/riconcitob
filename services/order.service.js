@@ -2,13 +2,38 @@ const boom = require('@hapi/boom');
 //const bcrypt = require('bcrypt');
 const { models } = require('./../libs/sequelize');
 const { Op } = require('sequelize');
+const ProductService = require('./product.service');
+const IngredientService = require('./ingredient.service');
 class OrderService {
 	constructor() {}
 
 	async create(data) {
 		//const hash = await bcrypt.hash(data.password, 10);
+		const productService = new ProductService();
+		const ingredientService = new IngredientService();
 		const newOrder = await models.Order.create(data);
-
+		const orderId = newOrder.id;
+		data.items.map(async (item) => {
+			const { productId, quantity, price } = item;
+			await models.DetailOrder.create({
+				orderId: orderId,
+				productId: productId,
+				quantity: quantity,
+				price: price,
+			});
+			console.log('data', productId, quantity, price);
+			const ingredients = (await productService.findOne(productId)).dataValues
+				.DetailProducts;
+			ingredients.map((item) => {
+				const ingId = parseFloat(item.dataValues.ingredientId);
+				const ingQunatity = parseFloat(item.dataValues.quantity);
+				console.log('item', ingId, ingQunatity);
+				ingredientService.restarStock(
+					ingId,
+					parseFloat(quantity) * parseFloat(ingQunatity)
+				);
+			});
+		});
 		return newOrder;
 	}
 

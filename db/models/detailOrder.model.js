@@ -35,6 +35,10 @@ const DetailOrderSchema = {
 		allowNull: false,
 		type: Sequelize.DataTypes.DECIMAL,
 	},
+	price: {
+		allowNull: false,
+		type: Sequelize.DataTypes.DECIMAL,
+	},
 	createdAt: {
 		allowNull: false,
 		type: Sequelize.DataTypes.DATE,

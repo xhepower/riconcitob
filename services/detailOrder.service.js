@@ -8,7 +8,8 @@ class DetailOrderService {
 	async create(data) {
 		//const hash = await bcrypt.hash(data.password, 10);
 		const newDetailOrder = await models.DetailOrder.create(data);
-
+		//bajarle al producto
+		console.log(newDetailOrder);
 		return newDetailOrder;
 	}
 

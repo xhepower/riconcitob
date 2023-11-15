@@ -48,7 +48,9 @@ class ProductService {
 	}
 
 	async findOne(id) {
-		const product = await models.Product.findByPk(id);
+		const product = await models.Product.findByPk(id, {
+			include: models.DetailProduct,
+		});
 		if (!product) {
 			throw boom.notFound('product not found');
 		}
