@@ -23,7 +23,7 @@ module.exports = {
 				{
 					email: 'xhepo@hotmail.es',
 					password: await bcrypt.hash('elguapo69', 10),
-					role: 'editor',
+					role: 'admin',
 					created_at: new Date(),
 				},
 				{
