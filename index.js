@@ -2,11 +2,12 @@ const express = require('express');
 const cors = require('cors');
 const routerApi = require('./routes');
 const bodyParser = require('body-parser');
+const path = require('path');
 const {
-  logErrors,
-  errorHandler,
-  boomErrorHandler,
-  ormErrorHandler,
+	logErrors,
+	errorHandler,
+	boomErrorHandler,
+	ormErrorHandler,
 } = require('./middlewares/error.handler');
 
 const app = express();
@@ -16,7 +17,15 @@ app.set('server.timeout', 300000);
 app.use(passport.initialize({ session: false }));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-
+app.use(
+	express.static(path.join(__dirname, 'build'), {
+		setHeaders: (res, path) => {
+			if (path.endsWith('.js')) {
+				res.setHeader('Content-Type', 'application/javascript');
+			}
+		},
+	})
+);
 // const whitelist = [
 //   'http://localhost:8080',
 //   'http://localhost:3005',
@@ -35,11 +44,11 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors());
 require('./utils/auth');
 app.get('/', (req, res) => {
-  res.send('Hola mi server en express');
+	res.send('aja');
 });
 
 app.get('/nueva-ruta', (req, res) => {
-  res.send('Hola, soy una nueva ruta');
+	res.send('Hola, soy una nueva ruta');
 });
 app.use(express.static('./pdfs'));
 routerApi(app);
@@ -50,5 +59,5 @@ app.use(boomErrorHandler);
 app.use(errorHandler);
 
 app.listen(port, () => {
-  console.log(`Mi port ${port}`);
+	console.log(`Mi port ${port}`);
 });
