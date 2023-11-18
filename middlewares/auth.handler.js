@@ -13,7 +13,6 @@ function checkApiKey(req, res, next) {
 
 function checkAdminRole(req, res, next) {
 	const user = req.user;
-	console.log(user);
 	if (user.role === 'admin' || user.role === 'GOD') {
 		next();
 	} else {
@@ -23,10 +22,8 @@ function checkAdminRole(req, res, next) {
 
 function checkRoles(...roles) {
 	roles.push('admin');
-	console.log('roles', roles);
 	return (req, res, next) => {
 		const user = req.user;
-		console.log('userRole', user.role);
 		if (roles.includes(user.role)) {
 			next();
 		} else {
