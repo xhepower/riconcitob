@@ -26,6 +26,7 @@ function checkRoles(...roles) {
 	console.log('roles', roles);
 	return (req, res, next) => {
 		const user = req.user;
+		console.log('userRole', user.role);
 		if (roles.includes(user.role)) {
 			next();
 		} else {
