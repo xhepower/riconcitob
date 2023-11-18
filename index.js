@@ -44,7 +44,7 @@ app.use(
 app.use(cors());
 require('./utils/auth');
 app.get('/', (req, res) => {
-	res.send('aja');
+	res.send('aja puto');
 });
 
 app.get('/nueva-ruta', (req, res) => {
